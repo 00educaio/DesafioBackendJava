@@ -12,9 +12,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Book Catalog API")
+                        .title("Desafio Livraria API")
                         .version("1.0")
-                        .description("API for managing a book catalog"))
+                        .description("CRUD em java "))
                 .components(new io.swagger.v3.oas.models.Components()
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
                                 .type(SecurityScheme.Type.HTTP)

@@ -1,6 +1,7 @@
 package caio_dev.Desafio_Livraria.controller;
 
 
+import caio_dev.Desafio_Livraria.dto.BatchBookRequestDTO;
 import caio_dev.Desafio_Livraria.dto.BookRequestDTO;
 import caio_dev.Desafio_Livraria.dto.BookResponseDTO;
 import caio_dev.Desafio_Livraria.dto.GenreReportDTO;
@@ -29,6 +30,13 @@ public class BookController {
     @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<BookResponseDTO> createBook(@Valid @RequestBody BookRequestDTO request) {
         return ResponseEntity.ok(bookService.createBook(request));
+    }
+
+    @PostMapping("/batch")
+    @PreAuthorize("hasRole('USER')")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<List<BookResponseDTO>> createBooksBatch(@Valid @RequestBody BatchBookRequestDTO request) {
+        return ResponseEntity.ok(bookService.createBooksBatch(request));
     }
 
     @PutMapping("/{id}")

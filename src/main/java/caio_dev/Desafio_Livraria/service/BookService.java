@@ -1,5 +1,6 @@
 package caio_dev.Desafio_Livraria.service;
 
+import caio_dev.Desafio_Livraria.dto.BatchBookRequestDTO;
 import caio_dev.Desafio_Livraria.dto.BookRequestDTO;
 import caio_dev.Desafio_Livraria.dto.BookResponseDTO;
 import caio_dev.Desafio_Livraria.dto.GenreReportDTO;
@@ -28,6 +29,21 @@ public class BookService {
         book.setCreatedBy(getCurrentUserId());
         Book savedBook = bookRepository.save(book);
         return mapToResponseDTO(savedBook);
+    }
+
+    public List<BookResponseDTO> createBooksBatch(BatchBookRequestDTO batchRequest) {
+        List<Book> books = batchRequest.books().stream()
+                .map(request -> {
+                    Book book = new Book();
+                    mapRequestToEntity(request, book);
+                    book.setCreatedBy(getCurrentUserId());
+                    return book;
+                })
+                .toList();
+        List<Book> savedBooks = bookRepository.saveAll(books);
+        return savedBooks.stream()
+                .map(this::mapToResponseDTO)
+                .toList();
     }
 
     public BookResponseDTO updateBook(UUID id, BookRequestDTO request) {
