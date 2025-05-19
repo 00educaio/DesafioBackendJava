@@ -6,6 +6,7 @@ import caio_dev.Desafio_Livraria.dto.BookResponseDTO;
 import caio_dev.Desafio_Livraria.dto.GenreReportDTO;
 import caio_dev.Desafio_Livraria.service.BookService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
