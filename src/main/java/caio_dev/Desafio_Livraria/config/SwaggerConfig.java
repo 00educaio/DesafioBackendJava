@@ -14,6 +14,10 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Desafio Livraria API")
                         .version("1.0")
-                        .description("CRUD em java "));
+                        .description("CRUD em java "))
+                .components(new io.swagger.v3.oas.models.Components()
+                        .addSecuritySchemes("bearerAuth", new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("basic")));
     }
 }
