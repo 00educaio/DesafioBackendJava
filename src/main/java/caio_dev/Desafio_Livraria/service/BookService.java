@@ -5,11 +5,15 @@ import caio_dev.Desafio_Livraria.dto.BookRequestDTO;
 import caio_dev.Desafio_Livraria.dto.BookResponseDTO;
 import caio_dev.Desafio_Livraria.dto.GenreReportDTO;
 import caio_dev.Desafio_Livraria.entity.Book;
+import caio_dev.Desafio_Livraria.entity.User;
 import caio_dev.Desafio_Livraria.repository.BookRepository;
 import caio_dev.Desafio_Livraria.repository.BookSpecifications;
+import caio_dev.Desafio_Livraria.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -18,17 +22,18 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Service
+@Service //Anotation que indica que a classe é de serviço
 @RequiredArgsConstructor
 public class BookService {
-    private final BookRepository bookRepository;
+    private final BookRepository bookRepository; //Repositorio que faz operações de banco
+    private final UserRepository userRepository;
 
-    public BookResponseDTO createBook(BookRequestDTO request) {
-        Book book = new Book();
+    public BookResponseDTO createBook(BookRequestDTO request) { 
+        Book book = new Book(); //Cria uma entidade Book
         mapRequestToEntity(request, book);
         book.setCreatedBy(getCurrentUserId());
-        Book savedBook = bookRepository.save(book);
-        return mapToResponseDTO(savedBook);
+        Book savedBook = bookRepository.save(book); //Usa o repositorio pra salvar a nova entidade no banco
+        return mapToResponseDTO(savedBook); // Retorna o a nova entidade mapeado pra dto
     }
 
     public List<BookResponseDTO> createBooksBatch(BatchBookRequestDTO batchRequest) {
@@ -119,8 +124,16 @@ public class BookService {
         return response;
     }
 
-    private UUID getCurrentUserId() {
-        // Implementar lógica para obter o ID do usuário autenticado
-        return UUID.randomUUID(); // Placeholder
+    private UUID getCurrentUserId() { //Função que acha o usuario pelo nome
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        return userRepository.findByUsername(username)
+                .map(User::getId)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
     }
 }

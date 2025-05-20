@@ -21,15 +21,15 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/books")
-@RequiredArgsConstructor
+@RequiredArgsConstructor //Anotação do Lombok pra poder usar o final
 public class BookController {
-    private final BookService bookService;
+    private final BookService bookService; //Servico que contém a lógica, o controller delega as operações para o BookService
 
     @PostMapping
-    @PreAuthorize("hasRole('USER')")
-    @SecurityRequirement(name = "bearerAuth")
+    @PreAuthorize("hasRole('USER')") //Autenticação com role user do SecurityConfig
+    @SecurityRequirement(name = "bearerAuth") //Autenticação do SwaggerConfig
     public ResponseEntity<BookResponseDTO> createBook(@Valid @RequestBody BookRequestDTO request) {
-        return ResponseEntity.ok(bookService.createBook(request));
+        return ResponseEntity.ok(bookService.createBook(request));                                  //Criação do livro passando pelo dto com as validações e os metodos do BookService
     }
 
     @PostMapping("/batch")

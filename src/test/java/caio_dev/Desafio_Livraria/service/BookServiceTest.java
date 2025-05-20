@@ -2,6 +2,7 @@ package caio_dev.Desafio_Livraria.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -91,5 +92,16 @@ class BookServiceTest {
     
         assertTrue(book.isDeleted());
         verify(bookRepository, times(1)).save(book);
+    }
+
+    @Test
+    void testDeleteBook_WhenBookNotFound_ShouldThrowException() {
+        UUID id = UUID.randomUUID();
+
+        when(bookRepository.findOne(anyBookSpecification())).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> bookService.deleteBook(id)); // ou sua exceção personalizada
+
+        verify(bookRepository, times(0)).save(any(Book.class));
     }
 }
