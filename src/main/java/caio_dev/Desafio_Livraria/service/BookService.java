@@ -68,12 +68,6 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public BookResponseDTO getBookById(UUID id) {
-        Book book = bookRepository.findOne(BookSpecifications.notDeleted().and((root, query, cb) -> cb.equal(root.get("id"), id)))
-                .orElseThrow(() -> new RuntimeException("Book not found"));
-        return mapToResponseDTO(book);
-    }
-
     public Page<BookResponseDTO> getAllBooks(Pageable pageable) {
         return bookRepository.findAll(BookSpecifications.notDeleted(), pageable)
                 .map(this::mapToResponseDTO);

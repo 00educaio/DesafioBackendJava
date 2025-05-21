@@ -54,11 +54,6 @@ public class BookController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BookResponseDTO> getBookById(@PathVariable UUID id) {
-        return ResponseEntity.ok(bookService.getBookById(id));
-    }
-
     @GetMapping
     public ResponseEntity<Page<BookResponseDTO>> getAllBooks(Pageable pageable) {
         return ResponseEntity.ok(bookService.getAllBooks(pageable));

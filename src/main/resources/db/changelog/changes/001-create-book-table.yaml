@@ -18,6 +18,8 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: author
+                  constraints:
+                    nullable: false
                   type: varchar(255)
               - column:
                   name: publication_year
