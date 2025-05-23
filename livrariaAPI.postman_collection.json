@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "94ae09ea-398f-4479-a883-102ecd1f30d9",
+		"name": "livrariaAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44220748",
+		"_collection_link": "https://caio-2016916.postman.co/workspace/Caio's-Workspace~32a6faad-7418-498e-8ee9-f5a20bc69063/collection/44220748-94ae09ea-398f-4479-a883-102ecd1f30d9?action=share&source=collection_link&creator=44220748"
+	},
+	"item": [
+		{
+			"name": "GetAll",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/books?page=1&size=15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "15"
+						},
+						{
+							"key": "sort",
+							"value": "title,asc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostOne",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "calvo",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "david",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"O Senhor dos Anéis\",\n  \"author\": \"J.R.R. Tolkien\",\n  \"publicationYear\": 1999,\n  \"genre\": \"Aventura\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostBatch",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "calvo",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "david",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"books\": [\n    {\"title\":\"Whispers of the Starwoven Veil\",\"author\":\"Elara Moonscribe\",\"publicationYear\":2023,\"genre\":\"Cosmic Fantasy\"},\n    {\"title\":\"The Midnight Library\",\"author\":\"Matt Haig\",\"publicationYear\":2020,\"genre\":\"Fantasy\"},\n    {\"title\":\"The Song of Achilles\",\"author\":\"Madeline Miller\",\"publicationYear\":2011,\"genre\":\"Historical Fiction\"},\n    {\"title\":\"It Ends with Us\",\"author\":\"Colleen Hoover\",\"publicationYear\":2016,\"genre\":\"Romance\"},\n    {\"title\":\"Where the Crawdads Sing\",\"author\":\"Delia Owens\",\"publicationYear\":2018,\"genre\":\"Mystery\"},\n    {\"title\":\"The Silent Patient\",\"author\":\"Alex Michaelides\",\"publicationYear\":2019,\"genre\":\"Thriller\"},\n    {\"title\":\"Project Hail Mary\",\"author\":\"Andy Weir\",\"publicationYear\":2021,\"genre\":\"Science Fiction\"},\n    {\"title\":\"Fourth Wing\",\"author\":\"Rebecca Yarros\",\"publicationYear\":2023,\"genre\":\"Fantasy\"},\n    {\"title\":\"A Court of Thorns and Roses\",\"author\":\"Sarah J. Maas\",\"publicationYear\":2015,\"genre\":\"Fantasy\"},\n    {\"title\":\"The Seven Husbands of Evelyn Hugo\",\"author\":\"Taylor Jenkins Reid\",\"publicationYear\":2017,\"genre\":\"Historical Fiction\"},\n    {\"title\":\"Verity\",\"author\":\"Colleen Hoover\",\"publicationYear\":2018,\"genre\":\"Romantic Thriller\"},\n    {\"title\":\"Lessons in Chemistry\",\"author\":\"Bonnie Garmus\",\"publicationYear\":2022,\"genre\":\"Historical Fiction\"},\n    {\"title\":\"Tomorrow, and Tomorrow, and Tomorrow\",\"author\":\"Gabrielle Zevin\",\"publicationYear\":2022,\"genre\":\"Literary Fiction\"},\n    {\"title\":\"Remarkably Bright Creatures\",\"author\":\"Shelby Van Pelt\",\"publicationYear\":2022,\"genre\":\"Contemporary Fiction\"},\n    {\"title\":\"Daisy Jones & The Six\",\"author\":\"Taylor Jenkins Reid\",\"publicationYear\":2019,\"genre\":\"Historical Fiction\"},\n    {\"title\":\"Before We Were Strangers\",\"author\":\"Renée Carlino\",\"publicationYear\":2015,\"genre\":\"Romance\"},\n    {\"title\":\"The House in the Cerulean Sea\",\"author\":\"TJ Klune\",\"publicationYear\":2020,\"genre\":\"Fantasy\"},\n    {\"title\":\"Atomic Habits\",\"author\":\"James Clear\",\"publicationYear\":2018,\"genre\":\"Self-Help\"},\n    {\"title\":\"The Subtle Art of Not Giving a F*ck\",\"author\":\"Mark Manson\",\"publicationYear\":2016,\"genre\":\"Self-Help\"},\n    {\"title\":\"Ugly Love\",\"author\":\"Colleen Hoover\",\"publicationYear\":2014,\"genre\":\"Romance\"},\n    {\"title\":\"Spare\",\"author\":\"Prince Harry\",\"publicationYear\":2023,\"genre\":\"Memoir\"},\n    {\"title\":\"Greenlights\",\"author\":\"Matthew McConaughey\",\"publicationYear\":2020,\"genre\":\"Memoir\"},\n    {\"title\":\"The Paper Palace\",\"author\":\"Miranda Cowley Heller\",\"publicationYear\":2021,\"genre\":\"Fiction\"},\n    {\"title\":\"Shatter Me\",\"author\":\"Tahereh Mafi\",\"publicationYear\":2011,\"genre\":\"Young Adult\"},\n    {\"title\":\"The Ballad of Songbirds and Snakes\",\"author\":\"Suzanne Collins\",\"publicationYear\":2020,\"genre\":\"Dystopian Fiction\"}\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/books/batch",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"batch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "calvo",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "david",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"O Senhor dos Anéis - Atualizado!\",\n  \"author\": \"J.R.R. Tolkien\",\n  \"publicationYear\": 1999,\n  \"genre\": \"Aventura\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/books/4f40cd65-72c1-4a41-aff5-f95f4d485847",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"4f40cd65-72c1-4a41-aff5-f95f4d485847"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "calvo",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "david",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/books/4f40cd65-72c1-4a41-aff5-f95f4d485847",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"4f40cd65-72c1-4a41-aff5-f95f4d485847"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "david",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "calvo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/books/search?publicationYear=2020",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Book",
+							"disabled": true
+						},
+						{
+							"key": "author",
+							"value": "Author",
+							"disabled": true
+						},
+						{
+							"key": "genre",
+							"value": "Fiction",
+							"disabled": true
+						},
+						{
+							"key": "publicationYear",
+							"value": "2020"
+						},
+						{
+							"key": "page",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "10",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "genreReport",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "david",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "calvo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/books/report/genres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"report",
+						"genres"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

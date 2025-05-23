@@ -9,7 +9,6 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic; // Mantenha, caso use SecurityContextHolder.getContext() estaticamente
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -27,13 +26,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specification; // O Warning não é um erro, funciona certinho.
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,29 +47,28 @@ import caio_dev.Desafio_Livraria.repository.BookRepository;
 import caio_dev.Desafio_Livraria.repository.UserRepository;
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
-    @Mock
+    @Mock   //Cria um versão simulada
     private BookRepository bookRepository;
 
     @Mock
     private UserRepository userRepository;
 
-    @InjectMocks
+    @InjectMocks //Injeta das depencias mocks num BookService mockado
     private BookService bookService;
 
-    @Mock // Mock o UserService para isolar o BookService
+    @Mock 
     private UserService userService;
 
     private UUID userId;
     private User currentUser;
 
-    @BeforeEach
+    @BeforeEach 
     void setUp() {
         userId = UUID.randomUUID();
-        // Crie o currentUser diretamente aqui, já que o UserService está mockado
         currentUser = new User();
         currentUser.setId(userId);
-        currentUser.setUsername("testuser"); // Importante: o username do UserDetails vai ser 'testuser'
-        currentUser.setPassword("encodedPassword"); // Não precisa ser real para este mock
+        currentUser.setUsername("testuser"); 
+        currentUser.setPassword("encodedPassword"); 
         currentUser.setRole("USER");
     }
 
@@ -90,12 +87,11 @@ class BookServiceTest {
         return book;
     }
 
-    // A ordem dos parâmetros aqui deve ser title, author, publicationYear, genre
     private BookRequestDTO createBookRequestDTO(String title, String author, Integer publicationYear, String genre) {
         return new BookRequestDTO(title, author, publicationYear, genre);
     }
 
-    // Helper para mockar SecurityContextHolder e UserRepository
+    // Helper para mockar SecurityContextHolder e UserRepository. Simulando o user logado.
     private void mockSecurityContextHolder() {
         Authentication authentication = mock(Authentication.class);
         SecurityContext securityContext = mock(SecurityContext.class);
@@ -116,13 +112,6 @@ class BookServiceTest {
         // Arrange
         mockSecurityContextHolder(); // Chama aqui para configurar o SecurityContext E o userRepository mock
         BookRequestDTO request = createBookRequestDTO("Title 1", "Author 1", 2020, "Fiction");
-
-        Book bookToSave = new Book();
-        bookToSave.setTitle("Title 1");
-        bookToSave.setAuthor("Author 1");
-        bookToSave.setGenre("Fiction");
-        bookToSave.setPublicationYear(2020);
-        bookToSave.setCreatedBy(userId);
 
         Book savedBook = createBook(UUID.randomUUID(), "Title 1", "Author 1", "Fiction", 2020, userId, null, false);
         savedBook.setCreatedAt(LocalDateTime.now()); // Set creation time for response mapping
@@ -386,7 +375,6 @@ class BookServiceTest {
         );
         // Assumindo que o serviço filtra livros deletados para o relatório.
         when(bookRepository.findAll(any(Specification.class))).thenReturn(books.stream().filter(book -> !book.isDeleted()).toList());
-
 
         // Act
         List<GenreReportDTO> report = bookService.getBooksByGenreReport();

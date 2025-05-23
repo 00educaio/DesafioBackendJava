@@ -7,21 +7,13 @@
 6. search -ok
 7. genreReport -ok
 
-# Tratar os erros -ok
-
-# Comentar tudo no src -emAndamento
-
-# Adicionar mais casos de teste
-
-
-
 1. CRUD de livros, com soft delete via Hibernate (não remover fisicamente do
-banco). -OK
+banco).
 # (BookService, BookSpecification)
 
-2. Endpoint público: listagem de livros (sem autenticação) e paginado. -OK
-    a. Busca com parâmetros opcionais ( title , author , genre , publicationYear ) -OK
-3. Endpoint autenticado: criação, edição e deleção. -OK
+2. Endpoint público: listagem de livros (sem autenticação) e paginado.
+    a. Busca com parâmetros opcionais ( title , author , genre , publicationYear )
+3. Endpoint autenticado: criação, edição e deleção. 
 # (BookController)
 
 4. Liquibase: criação das tabelas.
