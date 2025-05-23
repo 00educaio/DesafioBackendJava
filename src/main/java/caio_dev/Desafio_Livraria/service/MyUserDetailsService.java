@@ -24,3 +24,5 @@ public class MyUserDetailsService implements UserDetailsService {
         return new MyUserDetails(user);
     }
 }
+
+// Uma implementação personalizada da interface UserDetailsService do Spring Security. É responsável por carregar os detalhes do usuário (como nome de usuário e senha) durante o processo de autenticação

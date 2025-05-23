@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+
+@AllArgsConstructor // Gera um construtor com todos os campos
+@NoArgsConstructor  // Gera um construtor sem argumentos
 @JsonIgnoreProperties(ignoreUnknown = false)
 public class BookRequestDTO {
     @NotBlank(message = "Title is mandatory")

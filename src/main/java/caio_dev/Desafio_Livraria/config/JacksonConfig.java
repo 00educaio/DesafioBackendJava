@@ -18,3 +18,5 @@ public class JacksonConfig {
         return mapper;
     }
 }
+
+//Arquvo que faz uma deserialização dos jsons recebidos, pra que, se um campo não esperado for enviado na request, lance um erro

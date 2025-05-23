@@ -27,3 +27,5 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
+
+// Serve pra lidar com as exceptions das requests, tirando o tracktracing pro cliente

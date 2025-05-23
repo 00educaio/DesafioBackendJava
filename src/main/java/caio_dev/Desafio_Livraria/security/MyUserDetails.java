@@ -48,3 +48,5 @@ public class MyUserDetails implements UserDetails {
         return true;
     }
 }
+
+//Essa classe adapta as informações do seu objeto User (entidade) para o formato que o Spring Security espera para gerenciar a autenticação e autorização do usuário logado.
